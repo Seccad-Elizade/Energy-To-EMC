@@ -40,7 +40,6 @@ public class EmcCapacitorBlock extends ContainerBlock {
     @Nullable
     @Override
     public TileEntity newBlockEntity(IBlockReader level) {
-        // Fixed: Use default constructor and then set the capacity
         EmcCapacitorBlockEntity be = new EmcCapacitorBlockEntity();
         be.setCapacity(this.capacity);
         return be;
@@ -54,7 +53,6 @@ public class EmcCapacitorBlock extends ContainerBlock {
             if (be instanceof EmcCapacitorBlockEntity) {
                 NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) be, pos);
             } else {
-                // This can happen briefly during block placement/removal, so log it instead of crashing
                 return ActionResultType.PASS;
             }
         }

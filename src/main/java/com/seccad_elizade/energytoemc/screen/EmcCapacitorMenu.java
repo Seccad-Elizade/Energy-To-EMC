@@ -18,12 +18,10 @@ public class EmcCapacitorMenu extends Container {
     private final EmcCapacitorBlockEntity blockEntity;
     private final IIntArray data;
 
-    // Client Constructor (called by Forge when opening the GUI)
     public EmcCapacitorMenu(int containerId, PlayerInventory inv, PacketBuffer extraData) {
         this(containerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new IntArray(8));
     }
 
-    // Server Constructor
     public EmcCapacitorMenu(int containerId, PlayerInventory inv, TileEntity entity, IIntArray data) {
         super(ModMenuTypes.EMC_CAPACITOR_MENU.get(), containerId);
 
@@ -36,14 +34,12 @@ public class EmcCapacitorMenu extends Container {
         checkContainerDataCount(data, 8);
         this.data = data;
 
-        // Syncs the data array between server and client
         this.addDataSlots(data);
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
     }
 
-    // Reconstructs the 64-bit Long from 4x 16-bit Ints
     public long getStoredEmc() {
         return ((long) (data.get(0) & 0xFFFF)) |
                 ((long) (data.get(1) & 0xFFFF) << 16) |
@@ -60,7 +56,6 @@ public class EmcCapacitorMenu extends Container {
 
     @Override
     public boolean stillValid(PlayerEntity player) {
-        // Standard distance check
         return stillValid(net.minecraft.util.IWorldPosCallable.create(blockEntity.getLevel(), blockEntity.getBlockPos()),
                 player, blockEntity.getBlockState().getBlock());
     }
@@ -73,7 +68,6 @@ public class EmcCapacitorMenu extends Container {
             ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
 
-            // Logic for shifting between inventory and hotbar (since capacitors usually don't have slots)
             if (index < 27) {
                 if (!this.moveItemStackTo(itemstack1, 27, 36, false)) {
                     return ItemStack.EMPTY;

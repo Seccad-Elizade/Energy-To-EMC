@@ -52,13 +52,10 @@ public class EnergyToEmc {
 
     private void clientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            // Register Screen GUIs
             ScreenManager.register(ModMenuTypes.EMC_CONVERTER_MENU.get(), EmcConverterScreen::new);
             ScreenManager.register(ModMenuTypes.EMC_PIPE_MENU.get(), EmcPipeScreen::new);
             ScreenManager.register(ModMenuTypes.EMC_CAPACITOR_MENU.get(), EmcCapacitorScreen::new);
 
-            // FIX: This line tells Minecraft to allow transparency for the pipe.
-            // Without this, transparent textures render as SOLID BLACK.
             RenderTypeLookup.setRenderLayer(ModBlocks.EMC_PIPE.get(), RenderType.translucent());
 
             LOGGER.info("EnergyToEMC: Client Setup (Render Layers) Complete");

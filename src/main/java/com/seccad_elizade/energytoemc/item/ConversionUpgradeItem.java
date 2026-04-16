@@ -24,7 +24,6 @@ public class ConversionUpgradeItem extends Item {
     }
 
     public int getTier() {
-        // Replaced switch expression with standard block for Java 8/1.16.5 compatibility
         switch (this.profitMultiplier) {
             case 3: return 1;
             case 6: return 2;
@@ -40,7 +39,6 @@ public class ConversionUpgradeItem extends Item {
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         int tier = getTier();
 
-        // 1.16.5 Translation and Literal component syntax
         tooltip.add(new TranslationTextComponent("tooltip.energytoemc.upgrade_tier_" + tier)
                 .withStyle(TextFormatting.GRAY));
 

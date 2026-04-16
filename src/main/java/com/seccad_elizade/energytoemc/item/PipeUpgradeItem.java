@@ -37,7 +37,6 @@ public class PipeUpgradeItem extends Item {
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         TextFormatting tierColor;
-        // Replaced switch expression with standard switch for Java 8 compatibility
         switch (tier) {
             case 0: tierColor = TextFormatting.WHITE; break;
             case 1: tierColor = TextFormatting.GREEN; break;
@@ -45,13 +44,11 @@ public class PipeUpgradeItem extends Item {
             default: tierColor = TextFormatting.LIGHT_PURPLE; break;
         }
 
-        // Tier Line
         tooltip.add(new StringTextComponent("Pipe Tier: ").withStyle(TextFormatting.GRAY)
                 .append(new StringTextComponent(String.valueOf(tier + 1)).withStyle(tierColor, TextFormatting.BOLD)));
 
         tooltip.add(StringTextComponent.EMPTY);
 
-        // Rate Lines
         tooltip.add(new StringTextComponent("Max Transfer Rate:").withStyle(TextFormatting.GOLD));
         tooltip.add(new StringTextComponent(" " + String.format("%,d", transferRatePerSecond) + " EMC/sec")
                 .withStyle(TextFormatting.WHITE));
@@ -61,7 +58,6 @@ public class PipeUpgradeItem extends Item {
 
         tooltip.add(StringTextComponent.EMPTY);
 
-        // Warning Line
         tooltip.add(new StringTextComponent("⚠ Only works in EXTRACT mode")
                 .withStyle(TextFormatting.DARK_AQUA, TextFormatting.ITALIC));
     }

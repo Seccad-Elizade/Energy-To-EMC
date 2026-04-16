@@ -29,7 +29,6 @@ public class EmcPipeScreen extends ContainerScreen<EmcPipeMenu> {
     @Override
     protected void init() {
         super.init();
-        // Hide default labels to prevent mapping errors and for a cleaner UI
         this.titleLabelX = -1000;
         this.inventoryLabelX = -1000;
 
@@ -43,9 +42,6 @@ public class EmcPipeScreen extends ContainerScreen<EmcPipeMenu> {
 
     @Override
     protected void renderLabels(MatrixStack matrixStack, int mouseX, int mouseY) {
-        // If you still want to draw the "Inventory" text without using the problematic variable:
-        // ITextComponent invName = new TranslationTextComponent("container.inventory");
-        // this.font.draw(matrixStack, invName, 8, (float)this.imageHeight - 94, 4210752);
     }
 
     @Override

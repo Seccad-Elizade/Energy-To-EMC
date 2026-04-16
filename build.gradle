@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        // Updated to 6.0.+ for Gradle 8.4 support
+        // Required for Gradle 8.4 support
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.+', changing: true
     }
 }
@@ -13,18 +13,19 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    // Updated to 6.0.+ for Gradle 8.4 support
     id 'net.minecraftforge.gradle' version '6.0.+'
 }
 
-// ✅ FIXED: Hardcoded properties and version set to 1.0.0
+// ✅ SETTINGS: Version 1.0.1
 version = "1.0.1"
 group = "com.seccad_elizade.energytoemc"
 def mod_id = "energytoemc"
+def mc_version = "1.16.5"
 def mod_authors = "Seccad Elizade"
 
 base {
-    archivesName = mod_id
+    // ✅ This creates the file name: energytoemc-1.16.5-1.0.1.jar
+    archivesName = "${mod_id}-${mc_version}"
 }
 
 // 1.16.5 MUST use Java 8
@@ -79,7 +80,7 @@ dependencies {
 
 tasks.named('processResources', ProcessResources).configure {
     var replaceProperties = [
-            minecraft_version: "1.16.5",
+            minecraft_version: mc_version,
             minecraft_version_range: "[1.16.5, 1.17)",
             forge_version: "36.2.34",
             forge_version_range: "[36,)",
@@ -87,7 +88,7 @@ tasks.named('processResources', ProcessResources).configure {
             mod_id: mod_id,
             mod_name: "Energy To Emc",
             mod_license: "MIT",
-            mod_version: "1.0.1",
+            mod_version: project.version, // Pulls "1.0.1"
             mod_authors: mod_authors,
             mod_description: "A high-performance bridge between Forge Energy and ProjectE."
     ]

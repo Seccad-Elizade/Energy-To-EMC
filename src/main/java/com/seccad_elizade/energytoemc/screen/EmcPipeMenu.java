@@ -22,12 +22,10 @@ public class EmcPipeMenu extends Container {
     private final EmcPipeBlockEntity blockEntity;
     private final IIntArray data;
 
-    // Client Constructor
     public EmcPipeMenu(int containerId, PlayerInventory inv, PacketBuffer extraData) {
         this(containerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new IntArray(1));
     }
 
-    // Server Constructor
     public EmcPipeMenu(int containerId, PlayerInventory inv, TileEntity entity, IIntArray data) {
         super(ModMenuTypes.EMC_PIPE_MENU.get(), containerId);
 
@@ -40,17 +38,14 @@ public class EmcPipeMenu extends Container {
         this.data = data;
         checkContainerDataCount(data, 1);
 
-        // Custom SlotItemHandler for the Pipe Upgrade
         this.addSlot(new SlotItemHandler(blockEntity.getItemHandler(), 0, 80, 25) {
             @Override
             public boolean isActive() {
-                // Slot is only active/visible when in Extract Mode (1)
                 return isExtractMode();
             }
 
             @Override
             public boolean mayPlace(@Nonnull ItemStack stack) {
-                // Only allow PipeUpgradeItems
                 return isExtractMode() && stack.getItem() instanceof PipeUpgradeItem;
             }
         });
@@ -84,12 +79,10 @@ public class EmcPipeMenu extends Container {
             itemstack = itemstack1.copy();
 
             if (index == 0) {
-                // From Upgrade Slot to Inventory
                 if (!this.moveItemStackTo(itemstack1, 1, 37, true)) {
                     return ItemStack.EMPTY;
                 }
             } else {
-                // From Inventory to Upgrade Slot (if in extract mode)
                 if (isExtractMode() && itemstack1.getItem() instanceof PipeUpgradeItem) {
                     if (!this.moveItemStackTo(itemstack1, 0, 1, false)) {
                         return ItemStack.EMPTY;

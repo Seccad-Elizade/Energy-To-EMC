@@ -16,11 +16,9 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, EnergyToEmc.MOD_ID);
 
-    // --- Resources ---
     public static final RegistryObject<Item> COPPER_INGOT = ITEMS.register("copper_ingot",
             () -> new Item(new Item.Properties().tab(EnergyToEmc.TAB)));
 
-    // --- Block Items ---
     public static final RegistryObject<Item> EMC_CONVERTER_ITEM = ITEMS.register("emc_converter",
             () -> new BlockItem(ModBlocks.EMC_CONVERTER.get(), new Item.Properties().tab(EnergyToEmc.TAB)));
 
@@ -42,11 +40,9 @@ public class ModItems {
     public static final RegistryObject<Item> SINGULARITY_CAPACITOR = ITEMS.register("singularity_emc_capacitor",
             () -> new BlockItem(ModBlocks.CREATIVE_CAPACITOR.get(), new Item.Properties().tab(EnergyToEmc.TAB).rarity(Rarity.EPIC)));
 
-    // --- Functional Items ---
     public static final RegistryObject<WrenchItem> WRENCH = ITEMS.register("wrench",
             () -> new WrenchItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).tab(EnergyToEmc.TAB)));
 
-    // --- Pipe Upgrades ---
     public static final RegistryObject<PipeUpgradeItem> PIPE_UPGRADE_1 = ITEMS.register("pipe_upgrade_1",
             () -> new PipeUpgradeItem(new Item.Properties().stacksTo(1).tab(EnergyToEmc.TAB), 0, 360));
     public static final RegistryObject<PipeUpgradeItem> PIPE_UPGRADE_2 = ITEMS.register("pipe_upgrade_2",
@@ -58,7 +54,6 @@ public class ModItems {
     public static final RegistryObject<PipeUpgradeItem> PIPE_UPGRADE_5 = ITEMS.register("pipe_upgrade_5",
             () -> new PipeUpgradeItem(new Item.Properties().stacksTo(1).tab(EnergyToEmc.TAB), 4, 100000));
 
-    // --- Conversion Upgrades ---
     public static final RegistryObject<ConversionUpgradeItem> UPGRADE_TIER_1 = ITEMS.register("upgrade_tier_1",
             () -> new ConversionUpgradeItem(new Item.Properties().stacksTo(1).tab(EnergyToEmc.TAB), 3));
     public static final RegistryObject<ConversionUpgradeItem> UPGRADE_TIER_2 = ITEMS.register("upgrade_tier_2",

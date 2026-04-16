@@ -61,7 +61,6 @@ public class EmcPipeBlock extends ContainerBlock {
 
         ItemStack stack = player.getItemInHand(hand);
 
-        // 1. Wrench Logic: Handle connection toggling
         boolean isWrench = !stack.isEmpty() && stack.getItem().getRegistryName() != null
                 && stack.getItem().getRegistryName().getPath().contains("wrench");
 
@@ -77,7 +76,6 @@ public class EmcPipeBlock extends ContainerBlock {
             return ActionResultType.SUCCESS;
         }
 
-        // 2. GUI Logic: Only with EMPTY HAND and ONLY if connected to a MACHINE
         if (stack.isEmpty() && hand == Hand.MAIN_HAND) {
             if (isConnectedToMachine(level, pos, state)) {
                 if (be instanceof INamedContainerProvider) {
@@ -85,7 +83,6 @@ public class EmcPipeBlock extends ContainerBlock {
                     return ActionResultType.SUCCESS;
                 }
             } else {
-                // Inform player that configuration requires a machine connection
                 player.displayClientMessage(new StringTextComponent("Connect the pipe to a machine to configure it!").withStyle(TextFormatting.RED), true);
                 return ActionResultType.FAIL;
             }
@@ -94,21 +91,14 @@ public class EmcPipeBlock extends ContainerBlock {
         return ActionResultType.PASS;
     }
 
-    /**
-     * Checks if the pipe is connected to a ProjectE-compatible machine.
-     * It ignores connections to other EmcPipeBlocks.
-     */
     private boolean isConnectedToMachine(World level, BlockPos pos, BlockState state) {
         for (Direction dir : Direction.values()) {
-            // Check if there is a visual connection arm in this direction
             if (state.getValue(getPropertyForDirection(dir))) {
                 BlockPos neighborPos = pos.relative(dir);
                 BlockState neighborState = level.getBlockState(neighborPos);
 
-                // We only care if the neighbor is NOT another pipe
                 if (!(neighborState.getBlock() instanceof EmcPipeBlock)) {
                     TileEntity te = level.getBlockEntity(neighborPos);
-                    // Check if the neighbor has the ProjectE EMC Capability
                     if (te != null && te.getCapability(ProjectEAPI.EMC_STORAGE_CAPABILITY, dir.getOpposite()).isPresent()) {
                         return true;
                     }

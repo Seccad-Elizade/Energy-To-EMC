@@ -15,20 +15,16 @@ public class PacketPipeMode {
         this.pos = pos;
     }
 
-    // Encoder: Writing data to the buffer
     public static void encode(PacketPipeMode msg, PacketBuffer buffer) {
         buffer.writeBlockPos(msg.pos);
     }
 
-    // Decoder: Reading data from the buffer
     public static PacketPipeMode decode(PacketBuffer buffer) {
         return new PacketPipeMode(buffer.readBlockPos());
     }
 
-    // Handler: The logic that runs when the packet is received
     public static void handle(PacketPipeMode msg, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            // In 1.16.5, the context gives us the sender (the player)
             World world = ctx.get().getSender().level;
             if (world.isLoaded(msg.pos)) {
                 if (world.getBlockEntity(msg.pos) instanceof EmcPipeBlockEntity) {

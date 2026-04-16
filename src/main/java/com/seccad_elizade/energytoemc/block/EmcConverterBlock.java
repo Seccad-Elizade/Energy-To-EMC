@@ -77,7 +77,6 @@ public class EmcConverterBlock extends ContainerBlock {
         if (!world.isClientSide) {
             TileEntity te = world.getBlockEntity(pos);
             if (te instanceof EmcConverterBlockEntity) {
-                // Fixed: Use NetworkHooks.openGui to ensure the Menu receives the BlockPos data
                 NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) te, pos);
             }
         }
@@ -91,7 +90,6 @@ public class EmcConverterBlock extends ContainerBlock {
             TileEntity te = world.getBlockEntity(pos);
             if (te instanceof EmcConverterBlockEntity) {
                 EmcConverterBlockEntity converterBe = (EmcConverterBlockEntity) te;
-                // Drops contents of the internal ItemHandler when block is broken
                 for (int i = 0; i < converterBe.getItemHandler().getSlots(); i++) {
                     InventoryHelper.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(),
                             converterBe.getItemHandler().getStackInSlot(i));

@@ -11,7 +11,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModBlockEntities {
-    // Fixed: Changed MODID to MOD_ID to match your main class
     public static final DeferredRegister<TileEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, EnergyToEmc.MOD_ID);
 

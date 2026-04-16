@@ -10,7 +10,6 @@ public class CapabilityRegistration {
 
     @SubscribeEvent
     public static void setup(final FMLCommonSetupEvent event) {
-        // This will now work once the LOGGER is added to your main class
         EnergyToEmc.LOGGER.info("EnergyToEMC: Initializing Compatibility Setup...");
     }
 }

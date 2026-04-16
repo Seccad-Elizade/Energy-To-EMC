@@ -46,14 +46,12 @@ public class EmcConverterScreen extends ContainerScreen<EmcConverterMenu> {
 
         this.blit(matrixStack, x, y, 0, 0, this.imageWidth, this.imageHeight, 176, 166);
 
-        // ENERGY BAR (Blue)
         float energyPct = MathHelper.clamp((float) menu.getEnergy() / 1000000.0f, 0, 1);
         int eH = (int) (energyPct * 48);
         if (eH > 0) {
             fill(matrixStack, x + 12, y + 66 - eH, x + 21, y + 66, 0xFF00AAFF);
         }
 
-        // EMC BAR (Purple)
         float emcPct = MathHelper.clamp((float) menu.getEmc() / 100000.0f, 0, 1);
         int emcH = (int) (emcPct * 48);
         if (emcH > 0) {
@@ -73,7 +71,6 @@ public class EmcConverterScreen extends ContainerScreen<EmcConverterMenu> {
         int x = (this.width - this.imageWidth) / 2;
         int y = (this.height - this.imageHeight) / 2;
 
-        // Tooltip detection area matches your texture bar positions
         if (isHoveringArea(mouseX, mouseY, x + 11, y + 18, 12, 50)) {
             renderEnergyTooltip(matrixStack, mouseX, mouseY);
         }
@@ -91,9 +88,8 @@ public class EmcConverterScreen extends ContainerScreen<EmcConverterMenu> {
         String storage = String.format("%,d / 1,000,000 FE", menu.getEnergy());
         tooltip.add(new StringTextComponent(storage).withStyle(TextFormatting.BLUE));
 
-        tooltip.add(new StringTextComponent("")); // Spacer
+        tooltip.add(new StringTextComponent(""));
 
-        // Ensure menu.getEnergyUsage() is pulling index 11
         long usagePerSec = (long) menu.getEnergyUsage() * 20;
         ITextComponent avgLine = new StringTextComponent("Avg. Consumption: ").withStyle(TextFormatting.GRAY)
                 .append(new StringTextComponent(String.format("%,d FE/s", usagePerSec)).withStyle(TextFormatting.RED));
@@ -109,9 +105,8 @@ public class EmcConverterScreen extends ContainerScreen<EmcConverterMenu> {
         String storage = String.format("%,d / 100,000 EMC", menu.getEmc());
         tooltip.add(new StringTextComponent(storage).withStyle(TextFormatting.LIGHT_PURPLE));
 
-        tooltip.add(new StringTextComponent("")); // Spacer
+        tooltip.add(new StringTextComponent(""));
 
-        // Ensure menu.getEmcProduction() is pulling index 12
         long prodPerSec = (long) menu.getEmcProduction() * 20;
         ITextComponent avgLine = new StringTextComponent("Avg. Production: ").withStyle(TextFormatting.GRAY)
                 .append(new StringTextComponent(String.format("%,d EMC/s", prodPerSec)).withStyle(TextFormatting.GREEN));

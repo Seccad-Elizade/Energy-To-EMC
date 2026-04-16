@@ -3,7 +3,6 @@ loaderVersion="[36,)"
 license="MIT"
 
 [[mods]]
-# This MUST match your EnergyToEmc.MOD_ID in your Java code
 modId="energytoemc"
 version="1.0.1"
 displayName="Energy To Emc"
@@ -31,7 +30,6 @@ side="BOTH"
 [[dependencies.energytoemc]]
 modId="projecte"
 mandatory=true
-# ✅ FIXED: Changed to [0,) to support ProjectE's "PE1.0.2" version naming
 versionRange="[0,)"
 ordering="AFTER"
 side="BOTH"

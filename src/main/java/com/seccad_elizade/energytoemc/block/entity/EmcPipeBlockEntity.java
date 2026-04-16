@@ -39,7 +39,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 public class EmcPipeBlockEntity extends TileEntity implements INamedContainerProvider, ITickableTileEntity, IEmcStorage {
-    private int pipeMode = 0; // 0 = Input (to machines), 1 = Output (from machines)
+    private int pipeMode = 0;
     private int litTimer = 0;
 
     private boolean isScanning = false;
@@ -68,7 +68,6 @@ public class EmcPipeBlockEntity extends TileEntity implements INamedContainerPro
     public void tick() {
         if (level == null || level.isClientSide) return;
 
-        // Visual handling for flowing EMC
         if (this.litTimer > 0) {
             this.litTimer--;
         }
@@ -80,7 +79,6 @@ public class EmcPipeBlockEntity extends TileEntity implements INamedContainerPro
             level.sendBlockUpdated(worldPosition, state, state.setValue(EmcPipeBlock.LIT, shouldBeLit), 3);
         }
 
-        // Logic for extracting from machines
         if (this.pipeMode == 1) {
             pumpFromMachines(level, worldPosition, state);
         }
@@ -93,7 +91,6 @@ public class EmcPipeBlockEntity extends TileEntity implements INamedContainerPro
             BlockPos targetPos = pos.relative(dir);
             TileEntity te = level.getBlockEntity(targetPos);
 
-            // Don't pull from other pipes here (findNetworkSinks handles that)
             if (te == null || te instanceof EmcPipeBlockEntity) continue;
 
             te.getCapability(ProjectEAPI.EMC_STORAGE_CAPABILITY, dir.getOpposite()).ifPresent(sourceMachine -> {
@@ -121,11 +118,9 @@ public class EmcPipeBlockEntity extends TileEntity implements INamedContainerPro
                         this.isScanning = false;
                     }
 
-                    // FIXED: Only extract from machine what we successfully inserted into sinks
                     if (totalActuallyMoved > 0) {
                         sourceMachine.extractEmc(totalActuallyMoved, EmcAction.EXECUTE);
 
-                        // Light up the path
                         for (BlockPos p : network) {
                             TileEntity pte = level.getBlockEntity(p);
                             if (pte instanceof EmcPipeBlockEntity) {
@@ -160,7 +155,6 @@ public class EmcPipeBlockEntity extends TileEntity implements INamedContainerPro
                     EmcPipeBlockEntity neighborPipe = (EmcPipeBlockEntity) te;
                     visited.add(next);
                     queue.add(next);
-                    // Only pipes in Input mode (0) can act as sinks for machines
                     if (neighborPipe.pipeMode == 0) {
                         sinks.add(neighborPipe);
                     }
@@ -171,7 +165,6 @@ public class EmcPipeBlockEntity extends TileEntity implements INamedContainerPro
 
     @Override
     public long insertEmc(long amount, EmcAction action) {
-        // Output pipes don't accept EMC into machines
         if (this.pipeMode == 1 || amount <= 0 || level == null || isScanning) return 0;
 
         BlockState state = getBlockState();
@@ -181,7 +174,6 @@ public class EmcPipeBlockEntity extends TileEntity implements INamedContainerPro
             BlockPos neighborPos = worldPosition.relative(dir);
             TileEntity te = level.getBlockEntity(neighborPos);
 
-            // Insert directly into adjacent machines
             if (te != null && !(te instanceof EmcPipeBlockEntity)) {
                 Optional<Long> accepted = te.getCapability(ProjectEAPI.EMC_STORAGE_CAPABILITY, dir.getOpposite()).map(machine -> {
                     long machineAccepted = machine.insertEmc(amount, action);

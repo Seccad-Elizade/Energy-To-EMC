@@ -28,7 +28,6 @@ public class WrenchItem extends Item {
 
         if (player == null) return ActionResultType.PASS;
 
-        // Case 1: Clicking directly on the pipe
         if (clickedState.getBlock() instanceof EmcPipeBlock) {
             if (!level.isClientSide) {
                 Direction sideToToggle = getTargetDirection(context);
@@ -39,7 +38,6 @@ public class WrenchItem extends Item {
             return ActionResultType.sidedSuccess(level.isClientSide);
         }
 
-        // Case 2: Clicking a block face to toggle the pipe attached to that face
         BlockPos pipePos = clickedPos.relative(clickedFace);
         BlockState pipeState = level.getBlockState(pipePos);
 
@@ -57,7 +55,6 @@ public class WrenchItem extends Item {
     }
 
     private Direction getTargetDirection(ItemUseContext context) {
-        // In 1.16.5, we use Vector3d and subtract manually
         Vector3d hitVec = context.getClickLocation().subtract(Vector3d.atLowerCornerOf(context.getClickedPos()));
         double x = hitVec.x - 0.5;
         double y = hitVec.y - 0.5;
@@ -85,7 +82,6 @@ public class WrenchItem extends Item {
 
         level.setBlock(pos, state.setValue(sideProperty, newState), 3);
 
-        // Synchronize the connection with the neighboring pipe if it exists
         BlockState neighborState = level.getBlockState(neighborPos);
         if (neighborState.getBlock() instanceof EmcPipeBlock) {
             Direction opposingSide = side.getOpposite();

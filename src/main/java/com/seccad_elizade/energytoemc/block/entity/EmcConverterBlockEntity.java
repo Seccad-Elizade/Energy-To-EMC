@@ -38,7 +38,6 @@ public class EmcConverterBlockEntity extends TileEntity implements INamedContain
     private final long MAX_EMC = 100000L;
     private long emcStored = 0;
 
-    // Smoothing Logic (Phosphor Font Support)
     private int energyUsage = 0;
     private int emcProduction = 0;
     private final int[] feHistory = new int[20];
@@ -58,7 +57,6 @@ public class EmcConverterBlockEntity extends TileEntity implements INamedContain
         }
     };
 
-    // FIXED: Bridges 64-bit EMC and smoothing data to the Client
     protected final IIntArray data = new IIntArray() {
         @Override
         public int get(int index) {
@@ -98,13 +96,11 @@ public class EmcConverterBlockEntity extends TileEntity implements INamedContain
         int feUsedThisTick = 0;
         int emcProducedThisTick = 0;
 
-        // 1. Redstone Check
         if (this.redstoneMode == 2 || (this.redstoneMode == 1 && !level.hasNeighborSignal(worldPosition))) {
             updateSmoothing(0, 0);
             return;
         }
 
-        // 2. Neighbor Interaction (Energy Pull)
         for (Direction dir : Direction.values()) {
             TileEntity neighbor = level.getBlockEntity(worldPosition.relative(dir));
             if (neighbor != null) {
@@ -120,7 +116,6 @@ public class EmcConverterBlockEntity extends TileEntity implements INamedContain
             }
         }
 
-        // 3. Processing Logic (FE -> EMC)
         ItemStack upgradeStack = itemHandler.getStackInSlot(0);
         int multiplier = 1;
         int tier = 0;
@@ -173,7 +168,6 @@ public class EmcConverterBlockEntity extends TileEntity implements INamedContain
 
     @Override public long insertEmc(long amount, EmcAction action) { return 0; }
 
-    // FIXED: Extraction Logic (Prevents infinite EMC from pipes)
     @Override
     public long extractEmc(long amount, EmcAction action) {
         long toExtract = Math.min(amount, this.emcStored);

@@ -12,12 +12,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModMenuTypes {
-    // Fixed: Changed MODID to MOD_ID to match your main EnergyToEmc class
     public static final DeferredRegister<ContainerType<?>> MENUS =
             DeferredRegister.create(ForgeRegistries.CONTAINERS, EnergyToEmc.MOD_ID);
 
-    // Using IForgeContainerType.create is the correct way to allow the
-    // Container to receive extra data (like BlockPos) from the server
     public static final RegistryObject<ContainerType<EmcConverterMenu>> EMC_CONVERTER_MENU =
             MENUS.register("emc_converter_menu", () -> IForgeContainerType.create(EmcConverterMenu::new));
 

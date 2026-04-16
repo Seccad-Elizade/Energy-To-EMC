@@ -21,12 +21,10 @@ public class EmcConverterMenu extends Container {
     private final World world;
     private final IIntArray data;
 
-    // Client Constructor
     public EmcConverterMenu(int containerId, PlayerInventory inv, PacketBuffer extraData) {
         this(containerId, inv, inv.player.level.getBlockEntity(extraData.readBlockPos()), new IntArray(13));
     }
 
-    // Server Constructor
     public EmcConverterMenu(int containerId, PlayerInventory inv, TileEntity entity, IIntArray data) {
         super(ModMenuTypes.EMC_CONVERTER_MENU.get(), containerId);
 
@@ -40,22 +38,18 @@ public class EmcConverterMenu extends Container {
         this.world = inv.player.level;
         this.data = data;
 
-        // Slot 0: Upgrade Slot
         this.addSlot(new SlotItemHandler(blockEntity.getItemHandler(), 0, 80, 35));
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        // Synchronize the data array (Indices 0-12)
         this.addDataSlots(data);
     }
 
-    // Energy display (32-bit)
     public int getEnergy() {
         return (this.data.get(0) & 0xFFFF) | (this.data.get(1) << 16);
     }
 
-    // EMC display (64-bit) - FIXED: Masking with 0xFFFF prevents sign-extension errors
     public long getEmc() {
         return (long) (this.data.get(2) & 0xFFFF) |
                 ((long) (this.data.get(3) & 0xFFFF) << 16) |
@@ -63,7 +57,6 @@ public class EmcConverterMenu extends Container {
                 ((long) (this.data.get(5) & 0xFFFF) << 48);
     }
 
-    // Phosphor Display & Logic sync
     public int getEnergyUsage() { return this.data.get(11); }
     public int getEmcProduction() { return this.data.get(12); }
     public int getRedstoneMode() { return this.data.get(10); }
@@ -78,7 +71,6 @@ public class EmcConverterMenu extends Container {
         ItemStack sourceStack = sourceSlot.getItem();
         ItemStack copyStack = sourceStack.copy();
 
-        // 0: Upgrade Slot, 1-27: Inventory, 28-36: Hotbar
         if (index < 1) {
             if (!moveItemStackTo(sourceStack, 1, 37, true)) {
                 return ItemStack.EMPTY;

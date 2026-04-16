@@ -43,7 +43,6 @@ public class EmcCapacitorScreen extends ContainerScreen<EmcCapacitorMenu> {
         int x = (this.width - this.imageWidth) / 2;
         int y = (this.height - this.imageHeight) / 2;
 
-        // EXACT MATCH to your 1.21.1 code: ending in 176, 166
         this.blit(matrixStack, x, y, 0, 0, this.imageWidth, this.imageHeight, 176, 166);
 
         int barX = x + 38;
@@ -58,7 +57,6 @@ public class EmcCapacitorScreen extends ContainerScreen<EmcCapacitorMenu> {
         double fillPct = isCreative ? 1.0 : (max > 0 ? (double) stored / max : 0);
         int scaledWidth = (int) (fillPct * barWidth);
 
-        // Exact drawing logic from your perfect code
         fill(matrixStack, barX - 1, barY - 1, barX + barWidth + 1, barY + barHeight + 1, 0xFF000000);
         fill(matrixStack, barX, barY, barX + barWidth, barY + barHeight, 0xFF222222);
 

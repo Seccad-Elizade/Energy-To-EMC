@@ -108,7 +108,7 @@ public class EmcCapacitorBlockEntity extends TileEntity implements IEmcStorage, 
         }
     }
 
-    // --- ProjectE IEmcStorage Methods ---
+
 
     @Override
     public long insertEmc(long amount, EmcAction action) {
@@ -135,7 +135,6 @@ public class EmcCapacitorBlockEntity extends TileEntity implements IEmcStorage, 
     @Override public long getStoredEmc() { return storedEmc; }
     @Override public long getMaximumEmc() { return capacity; }
 
-    // --- Container & UI ---
 
     @Override
     public ITextComponent getDisplayName() {
@@ -148,7 +147,6 @@ public class EmcCapacitorBlockEntity extends TileEntity implements IEmcStorage, 
         return new EmcCapacitorMenu(id, inv, this, this.data);
     }
 
-    // --- Data Persistence ---
 
     @Override
     public void load(BlockState state, CompoundNBT tag) {
@@ -176,7 +174,6 @@ public class EmcCapacitorBlockEntity extends TileEntity implements IEmcStorage, 
         return super.getCapability(cap, side);
     }
 
-    // --- Networking ---
 
     @Nullable
     @Override
