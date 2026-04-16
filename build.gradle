@@ -4,7 +4,6 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        // Required for Gradle 8.4 support
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.+', changing: true
     }
 }
@@ -16,7 +15,6 @@ plugins {
     id 'net.minecraftforge.gradle' version '6.0.+'
 }
 
-// ✅ SETTINGS: Version 1.0.1
 version = "1.0.1"
 group = "com.seccad_elizade.energytoemc"
 def mod_id = "energytoemc"
@@ -24,11 +22,9 @@ def mc_version = "1.16.5"
 def mod_authors = "Seccad Elizade"
 
 base {
-    // ✅ This creates the file name: energytoemc-1.16.5-1.0.1.jar
     archivesName = "${mod_id}-${mc_version}"
 }
 
-// 1.16.5 MUST use Java 8
 java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 minecraft {
@@ -71,10 +67,8 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:1.16.5-36.2.34"
 
-    // JEI for 1.16.5
     implementation fg.deobf("mezz.jei:jei-1.16.5:7.7.1.152")
 
-    // ProjectE local JAR (Ensure ProjectE-1.16.5-PE1.0.2.jar is in the /libs folder)
     implementation fg.deobf(project.dependencies.create(group: "local", name: "ProjectE-1.16.5-PE1.0.2", version: "1.0.2"))
 }
 
