@@ -4,7 +4,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        // Updated to 6.0.+ for Gradle 8.4 support
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.+', changing: true
     }
 }
 
@@ -12,20 +13,24 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    // Updated to 6.0.+ for Gradle 8.4 support
+    id 'net.minecraftforge.gradle' version '6.0.+'
 }
 
-version = mod_version
-group = mod_group_id
+// ✅ FIXED: Hardcoded properties and version set to 1.0.0
+version = "1.0.1"
+group = "com.seccad_elizade.energytoemc"
+def mod_id = "energytoemc"
+def mod_authors = "Seccad Elizade"
 
 base {
     archivesName = mod_id
 }
 
+// 1.16.5 MUST use Java 8
 java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 minecraft {
-    // Corrected to 'official' to match ProjectE PE1.0.2 compiled names
     mappings channel: 'official', version: '1.16.5'
 
     copyIdeResources = true
@@ -57,7 +62,6 @@ repositories {
     maven { name = "Progwml6 maven"; url = "https://dvs1.progwml6.com/files/maven/" }
     maven { name = "ModMaven"; url = "https://modmaven.dev" }
 
-    // Re-added for local file resolution
     flatDir {
         dirs 'libs'
     }
@@ -66,27 +70,26 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:1.16.5-36.2.34"
 
-    // JEI
+    // JEI for 1.16.5
     implementation fg.deobf("mezz.jei:jei-1.16.5:7.7.1.152")
 
-    // ✅ FIXED: Using project.dependencies.create allows fg.deobf to work on local JARs
-    // Make sure the file ProjectE-1.16.5-PE1.0.2.jar is in the /libs folder
+    // ProjectE local JAR (Ensure ProjectE-1.16.5-PE1.0.2.jar is in the /libs folder)
     implementation fg.deobf(project.dependencies.create(group: "local", name: "ProjectE-1.16.5-PE1.0.2", version: "1.0.2"))
 }
 
 tasks.named('processResources', ProcessResources).configure {
     var replaceProperties = [
-            minecraft_version: minecraft_version,
-            minecraft_version_range: minecraft_version_range,
-            forge_version: forge_version,
-            forge_version_range: forge_version_range,
-            loader_version_range: loader_version_range,
+            minecraft_version: "1.16.5",
+            minecraft_version_range: "[1.16.5, 1.17)",
+            forge_version: "36.2.34",
+            forge_version_range: "[36,)",
+            loader_version_range: "[36,)",
             mod_id: mod_id,
-            mod_name: mod_name,
-            mod_license: mod_license,
-            mod_version: mod_version,
+            mod_name: "Energy To Emc",
+            mod_license: "MIT",
+            mod_version: "1.0.1",
             mod_authors: mod_authors,
-            mod_description: mod_description,
+            mod_description: "A high-performance bridge between Forge Energy and ProjectE."
     ]
     inputs.properties replaceProperties
     filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
@@ -101,7 +104,7 @@ tasks.named('jar', Jar).configure {
                 'Specification-Vendor'    : mod_authors,
                 'Specification-Version'   : '1',
                 'Implementation-Title'    : project.name,
-                'Implementation-Version'  : project.jar.archiveVersion,
+                'Implementation-Version'  : project.version,
                 'Implementation-Vendor'   : mod_authors,
                 'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
