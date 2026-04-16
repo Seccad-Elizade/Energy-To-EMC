@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iHi",
+    "RCR",
+    "iVi"
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "H": {
+      "item": "minecraft:hopper"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "C": {
+      "item": "minecraft:crafting_table"
+    },
+    "V": {
+      "item": "minecraft:chest"
+    }
+  },
+  "result": {
+    "item": "energytoemc:emc_converter",
+    "count": 1
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IMI",
+    "BRB",
+    "IBI"
+  ],
+  "key": {
+    "I": { "item": "minecraft:iron_ingot" },
+    "M": { "item": "minecraft:minecart" },
+    "B": { "item": "minecraft:blue_dye" },
+    "R": { "item": "minecraft:rail" }
+  },
+  "result": {
+    "item": "energytoemc:pipe_upgrade_1",
+    "count": 1
+  }
+}

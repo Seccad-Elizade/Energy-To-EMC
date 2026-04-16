@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [ "IDI", "RSR", "RSR" ],
+  "key": {
+    "I": { "item": "minecraft:iron_ingot" },
+    "D": { "item": "minecraft:diamond" },
+    "R": { "item": "minecraft:redstone" },
+    "S": { "item": "minecraft:stick" }
+  },
+  "result": { "item": "energytoemc:wrench", "count": 1 }
+}

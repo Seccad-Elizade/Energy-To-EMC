@@ -1,0 +1,41 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="MIT"
+
+[[mods]]
+# This matches your EnergyToEmc.MOD_ID exactly
+modId="energytoemc"
+version="1.0.1"
+displayName="Energy To Emc"
+displayURL="https://github.com/Seccad-Elizade"
+authors="Seccad"
+description='''
+A technical automation mod that bridges Forge Energy (FE) and ProjectE.
+
+Convert high-tier power into raw EMC using the Emc Converter. This mod features:
+* Real-time smoothing logic for accurate Avg. Consumption and Production tracking.
+* High-performance EMC Pipes with configurable Input/Output modes.
+* Tiered Conversion Upgrades to scale your EMC production.
+* Integrated Redstone control modes for automated systems.
+'''
+
+[[dependencies.energytoemc]]
+modId="forge"
+mandatory=true
+versionRange="[36.2.34,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.energytoemc]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.16.5, 1.17)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.energytoemc]]
+modId="projecte"
+mandatory=true
+versionRange="[1.0.0,)"
+ordering="AFTER"
+side="BOTH"

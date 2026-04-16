@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " N ",
+    " P ",
+    "   "
+  ],
+  "key": {
+    "N": { "item": "minecraft:netherite_ingot" },
+    "P": { "item": "energytoemc:upgrade_tier_4" }
+  },
+  "result": {
+    "item": "energytoemc:upgrade_tier_5",
+    "count": 1
+  }
+}

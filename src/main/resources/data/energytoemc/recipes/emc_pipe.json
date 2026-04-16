@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#c#",
+    "ici",
+    "#c#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:purple_dye"
+    },
+    "c": {
+      "item": "energytoemc:copper_ingot"
+    },
+    "i": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "energytoemc:emc_pipe",
+    "count": 8
+  }
+}
