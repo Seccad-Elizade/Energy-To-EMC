@@ -39,4 +39,4 @@ This project is licensed under the **MIT License**.
 * **Contributions:** Found a bug? Feel free to submit an issue or a Pull Request on GitHub.
 
 ---
-*Developed by **Seccad Elizade** - [View Repository](https://github.com/Seccad-Elizade/Energy-To-EMC-1.21.1-NeoForge)*
+*Developed by **Seccad Elizade** - [View Repository](https://github.com/Seccad-Elizade/Energy-To-EMC/tree/Energy-To-EMC-1.21.1-NeoForge)*
